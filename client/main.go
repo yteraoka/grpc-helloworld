@@ -42,6 +42,7 @@ var (
 	serverAddr         = flag.String("server_addr", "localhost:10000", "The server address in the format of host:port")
 	serverHostOverride = flag.String("server_host_override", "x.test.youtube.com", "The server name use to verify the hostname returned by TLS handshake")
 	timeoutSec         = flag.Int("timeout", 1, "read timeout in second")
+	requestCount       = flag.Int("count", 1, "number of request")
 )
 
 func main() {
@@ -77,9 +78,12 @@ func main() {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second * time.Duration(*timeoutSec))
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
-	if err != nil {
-		log.Fatalf("could not greet: %v", err)
+
+	for i := 0; i < *requestCount; i++ {
+		r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+		if err != nil {
+			log.Fatalf("could not greet: %v", err)
+		}
+		log.Printf("Greeting: %s", r.GetMessage())
 	}
-	log.Printf("Greeting: %s", r.GetMessage())
 }

@@ -26,6 +26,8 @@ $ ./client -help
 Usage of ./client:
   -ca_file string
     	The file containing the CA root cert file
+  -count int
+    	number of request (default 1)
   -server_addr string
     	The server address in the format of host:port (default "localhost:10000")
   -server_host_override string

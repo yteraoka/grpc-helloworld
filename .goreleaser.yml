@@ -1,0 +1,34 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  - goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.ShortCommit}}
+      - -X main.date={{.Date}}
+    env:
+      - CGO_ENABLED=0
+archives:
+  - format: binary
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+checksum:
+  name_template: checksums.txt
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  skip: true

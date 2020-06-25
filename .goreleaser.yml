@@ -4,6 +4,7 @@ before:
 builds:
   - id: server
     dir: server
+    binary: server
     goos:
       - linux
       - darwin
@@ -19,6 +20,7 @@ builds:
       - CGO_ENABLED=0
   - id: client
     dir: client
+    binary: client
     goos:
       - linux
       - darwin

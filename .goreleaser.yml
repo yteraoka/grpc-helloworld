@@ -44,9 +44,6 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
-    files:
-      - server/server
-      - client/client
 checksum:
   name_template: checksums.txt
 snapshot:

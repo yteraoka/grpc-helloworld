@@ -16,8 +16,23 @@ builds:
     env:
       - CGO_ENABLED=0
 archives:
-  - format: binary
+  - id: server
+    dir: server
+    format: binary
     name_template: "{{ .ProjectName }}-server_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+  - id: client
+    dir: client
+    format: binary
+    name_template: "{{ .ProjectName }}-client_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     replacements:
       darwin: Darwin
       linux: Linux

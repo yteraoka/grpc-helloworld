@@ -17,17 +17,17 @@ jobs:
           go-version: 1.14.3
       - name: Run GoReleaser server
         uses: goreleaser/goreleaser-action@v1
-        working-directory: server
         with:
           version: latest
           args: release --rm-dist
+          workdir: server
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run GoReleaser client
         uses: goreleaser/goreleaser-action@v1
-        working-directory: client
         with:
           version: latest
           args: release --rm-dist
+          workdir: client
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

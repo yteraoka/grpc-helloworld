@@ -43,6 +43,7 @@ var (
 	serverHostOverride = flag.String("server_host_override", "x.test.youtube.com", "The server name use to verify the hostname returned by TLS handshake")
 	timeoutSec         = flag.Int("timeout", 1, "read timeout in second")
 	requestCount       = flag.Int("count", 1, "number of request")
+	intervalSec        = flag.Int("interval", 0, "request interval")
 )
 
 func main() {
@@ -54,6 +55,7 @@ func main() {
 			*caFile = testdata.Path("ca.pem")
 		}
 		creds, err := credentials.NewClientTLSFromFile(*caFile, *serverHostOverride)
+		// log.Printf("%#v\n", creds)
 		if err != nil {
 			log.Fatalf("Failed to create TLS credentials %v", err)
 		}
@@ -85,5 +87,10 @@ func main() {
 			log.Fatalf("could not greet: %v", err)
 		}
 		log.Printf("Greeting: %s", r.GetMessage())
+		if *intervalSec > 0 {
+			if i < *requestCount - 1 {
+				time.Sleep(time.Second * time.Duration(*intervalSec))
+			}
+		}
 	}
 }

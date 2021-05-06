@@ -28,6 +28,8 @@ Usage of ./client:
     	The file containing the CA root cert file
   -count int
     	number of request (default 1)
+  -interval int
+    	request interval
   -server_addr string
     	The server address in the format of host:port (default "localhost:10000")
   -server_host_override string

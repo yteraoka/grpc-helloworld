@@ -1,4 +1,4 @@
-FROM golang:1.14.0-alpine3.11 as builder
+FROM golang:1.16.3-alpine3.13 as builder
 
 WORKDIR /work
 
@@ -13,7 +13,7 @@ RUN cd /work/client \
     && go mod download \
     && CGO_ENABLED=0 GOOS=linux go build
 
-FROM golang:1.14.0-alpine3.11
+FROM golang:1.16.3-alpine3.13
 WORKDIR /
 COPY --from=builder /work/client/client /client
 COPY --from=builder /work/server/server /server

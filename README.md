@@ -2,6 +2,9 @@
 
 based on https://github.com/grpc/grpc-go/tree/master/examples
 
+`-tls` を指定した場合、デフォルトでは内部に抱えている秘密鍵と証明書が使われる。
+server で `-cert_file`, `-key_file` を指定した場合は client で `-ca_file` を指定する必要がある。
+
 ## server
 
 ```

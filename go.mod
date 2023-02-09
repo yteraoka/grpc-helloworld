@@ -1,6 +1,6 @@
 module github.com/yteraoka/grpc-helloworld
 
-go 1.19
+go 1.20
 
 require (
 	google.golang.org/grpc v1.51.0

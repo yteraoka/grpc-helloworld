@@ -17,7 +17,7 @@ FROM gcr.io/distroless/static-debian11
 WORKDIR /
 COPY --from=builder /go/src/app/client/client /client
 COPY --from=builder /go/src/app/server/server /server
-COPY --from=builder /go/pkg/mod/google.golang.org/grpc@v1.51.0/testdata /go/pkg/mod/google.golang.org/grpc@v1.51.0/testdata/
+COPY --from=builder /go/pkg/mod/google.golang.org/grpc@v1.54.0/testdata /go/pkg/mod/google.golang.org/grpc@v1.54.0/testdata/
 USER nonroot
 EXPOSE 10000
 ENTRYPOINT ["/server"]

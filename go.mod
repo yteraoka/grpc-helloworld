@@ -3,7 +3,7 @@ module github.com/yteraoka/grpc-helloworld
 go 1.20
 
 require (
-	google.golang.org/grpc v1.57.0
+	google.golang.org/grpc v1.57.1
 	google.golang.org/grpc/examples v0.0.0-20230321202810-2997e84fd8d1
 )
 

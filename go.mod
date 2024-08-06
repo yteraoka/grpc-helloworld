@@ -2,7 +2,7 @@ module github.com/yteraoka/grpc-helloworld
 
 go 1.21
 
-toolchain go1.22.5
+toolchain go1.22.6
 
 require (
 	google.golang.org/grpc v1.65.0

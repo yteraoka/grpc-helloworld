@@ -11,13 +11,17 @@ RUN cd client \
     && CGO_ENABLED=0 GOOS=linux go build \
     && cd ../server \
     && go mod download \
-    && CGO_ENABLED=0 GOOS=linux go build
+    && CGO_ENABLED=0 GOOS=linux go build \
+    && cd .. \
+    && grpc_dir="$(go list -m -f '{{.Dir}}' google.golang.org/grpc)" \
+    && mkdir -p "/out${grpc_dir}" \
+    && cp -r "${grpc_dir}/testdata" "/out${grpc_dir}/"
 
 FROM gcr.io/distroless/static-debian13
 WORKDIR /
 COPY --from=builder /go/src/app/client/client /client
 COPY --from=builder /go/src/app/server/server /server
-COPY --from=builder /go/pkg/mod/google.golang.org/grpc@v1.54.0/testdata /go/pkg/mod/google.golang.org/grpc@v1.54.0/testdata/
+COPY --from=builder /out/go /go
 USER nonroot
 EXPOSE 10000
 ENTRYPOINT ["/server"]

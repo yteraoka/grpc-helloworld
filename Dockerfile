@@ -13,7 +13,7 @@ RUN cd client \
     && go mod download \
     && CGO_ENABLED=0 GOOS=linux go build
 
-FROM gcr.io/distroless/static-debian11
+FROM gcr.io/distroless/static-debian13
 WORKDIR /
 COPY --from=builder /go/src/app/client/client /client
 COPY --from=builder /go/src/app/server/server /server

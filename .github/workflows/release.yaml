@@ -3,14 +3,17 @@ on:
   push:
     tags:
       - "*"
+  pull_request:
+    branches:
+      - master
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Unshallow
-        run: git fetch --prune --unshallow
+        with:
+          fetch-depth: 0
       - name: Get go version from .mise.toml
         id: goversion
         run: echo goversion=$(grep '^golang ' .mise.toml | cut -d'"' -f2) >> $GITHUB_OUTPUT
@@ -21,7 +24,14 @@ jobs:
         uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
           go-version: ${{ steps.goversion.outputs.goversion }}
-      - name: Run GoReleaser server
+      - name: Run GoReleaser build (pull request)
+        if: github.event_name == 'pull_request'
+        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
+        with:
+          version: ${{ steps.goreleaserversion.outputs.goreleaserversion }}
+          args: build --clean --snapshot
+      - name: Run GoReleaser release (tag push)
+        if: github.event_name == 'push'
         uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
         with:
           version: ${{ steps.goreleaserversion.outputs.goreleaserversion }}

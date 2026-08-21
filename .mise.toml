@@ -1,2 +1,3 @@
 [tools]
 golang = "1.26.2"
+goreleaser = "2.17.1"

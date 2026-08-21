@@ -52,3 +52,13 @@ $ docker run --rm --name grpc-helloworld yteraoka/grpc-helloworld
 ```
 $ docker exec -it grpc-helloworld /client
 ```
+
+## container image (linux/amd64, linux/arm64)
+
+`Dockerfile` のビルドステージは `FROM --platform=$BUILDPLATFORM golang:...` とし、`GOOS=$TARGETOS GOARCH=$TARGETARCH` を指定した Go のクロスコンパイルでバイナリを作っている。
+
+QEMU エミュレーションでターゲットアーキテクチャ向けにビルドする方式と比べて、常にビルドホストのネイティブアーキテクチャ上で `go build` を実行できるため以下の利点がある。
+
+- QEMU エミュレーション不要のため `arm64` イメージのビルドも速い（Go コンパイラをエミュレーション環境で動かさずに済む）
+- CI 側で `docker/setup-qemu-action` などのセットアップが不要
+- 最終ステージ（distroless）には `RUN` が無いため、そちらもエミュレーション不要でビルドできる

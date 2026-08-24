@@ -6,7 +6,7 @@ toolchain go1.26.2
 
 require (
 	google.golang.org/grpc v1.83.1
-	google.golang.org/grpc/examples v0.0.0-20260821081038-ef79129ecf05
+	google.golang.org/grpc/examples v0.0.0-20260824104332-abf0c53de82e
 )
 
 require (

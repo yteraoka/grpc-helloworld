@@ -26,13 +26,13 @@ jobs:
           go-version: ${{ steps.goversion.outputs.goversion }}
       - name: Run GoReleaser build (pull request)
         if: github.event_name == 'pull_request'
-        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
+        uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
         with:
           version: ${{ steps.goreleaserversion.outputs.goreleaserversion }}
           args: build --clean --snapshot
       - name: Run GoReleaser release (tag push)
         if: github.event_name == 'push'
-        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
+        uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
         with:
           version: ${{ steps.goreleaserversion.outputs.goreleaserversion }}
           args: release --clean
